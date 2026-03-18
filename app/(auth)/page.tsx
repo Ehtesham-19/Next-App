@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Home() {
   return (
     <>
-      <h1>Welcome to BluePeak Sports</h1>
+      <h1>Welcome to Login page</h1>
     </>
   );
 }

@@ -1,9 +1,3 @@
-import Image from "next/image";
-
-export default function Home() {
-  return (
-    <>
-      <h1>Welcome to Login page</h1>
-    </>
-  );
+export default function AuthHomePage() {
+  return <h1>Welcome to Login Page</h1>;
 }

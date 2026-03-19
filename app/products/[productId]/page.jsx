@@ -1,9 +1,3 @@
-import React from 'react'
-
-function page() {
-  return (
-    <div>Product Details</div>
-  )
+export default function ProductDetailPage() {
+  return <div>Product Details</div>;
 }
-
-export default page

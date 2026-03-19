@@ -1,9 +1,3 @@
-import React from 'react'
-
-function PassWord() {
-  return (
-    <div>PassWord</div>
-  )
+export default function PasswordPage() {
+  return <div>Password Page</div>;
 }
-
-export default PassWord

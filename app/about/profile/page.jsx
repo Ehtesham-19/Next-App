@@ -1,12 +1,8 @@
-import React from 'react'
 export const metadata = {
-  title: 'About Page',
-  description: 'This is the about page of our Next.js app.',
-}
-function page() {
-  return (
-    <div>welcome to your profile</div>
-  )
-}
+  title: "Profile Page",
+  description: "This is your profile page.",
+};
 
-export default page
+export default function ProfilePage() {
+  return <div>Welcome to your profile</div>;
+}

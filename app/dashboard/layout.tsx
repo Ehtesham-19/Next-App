@@ -24,22 +24,27 @@ export default function DashboardLayout({
   admin,
   user,
   notification,
+  login,
 }: Readonly<{
   children: React.ReactNode;
   admin?: React.ReactNode;
   user?: React.ReactNode;
   notification?: React.ReactNode;
+  login?: React.ReactNode;
 }>) {
-  return (
+  const isLoggedIn = true;
+  return isLoggedIn ? (
     <section
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
       {children}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <div>{admin}</div>
-        <div>{user}</div>
-        <div>{notification}</div>
+        <div className="bg-red-400 p-5">{admin}</div>
+        <div className="bg-blue-400 p-5">{user}</div>
+        <div className="bg-green-400 p-5">{notification}</div>
       </div>
     </section>
+  ) : (
+    login
   );
 }

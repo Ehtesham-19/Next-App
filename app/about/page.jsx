@@ -4,6 +4,7 @@ export const metadata = {
 };
 
 export default  async function AboutPage() {
-  await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate a delay
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   return <div>Welcome to About Page</div>;
+  
 }

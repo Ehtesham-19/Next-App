@@ -1,13 +1,15 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { clerkMiddleware,createRouteMatcher } from '@clerk/nextjs/server'
+const isProtected= createRouteMatcher(["/products"])
 
-export function middleware(request: NextRequest) {
-  if (request.nextUrl.pathname === "/logout") {
-    return NextResponse.redirect(new URL("/", request.url));
-  }
-
-  return NextResponse.next();
-}
+export default clerkMiddleware(async (auth,req)=>{
+if(isProtected(req)) await auth.protect()
+})
 
 export const config = {
-  matcher: ["/logout"],
-};
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    // Always run for API routes
+    '/(api|trpc)(.*)',
+  ],
+}

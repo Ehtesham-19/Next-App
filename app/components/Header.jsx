@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 const AUTH_ROUTES = ["/login", "/logout", "/password"];
 
 const NAV_LINKS = [
-  { href: "/", label: "Home" },
+  { href: "/home", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/about/profile", label: "Profile" },
   { href: "/products", label: "Products" },

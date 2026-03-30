@@ -3,6 +3,7 @@ import { ClerkProvider, Show, SignInButton, SignUpButton, UserButton,SignOutButt
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import Header from './components/Header'
+import { Providers } from './providers'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -28,24 +29,26 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ClerkProvider>
+          <Providers>
             <Header/>
-          <header className="flex justify-end items-center p-4 gap-4 h-16">
-            <Show when="signed-out">
-              <SignInButton mode='modal' />
-              <SignUpButton mode="modal">
-                <button className="bg-[#6c47ff] text-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer">
-                  Sign Up
-                </button>
-              </SignUpButton>
+            <header className="flex justify-end items-center p-4 gap-4 h-16 bg-blue-300" >
+              <Show when="signed-out">
+                <SignInButton mode='modal' />
+                <SignUpButton mode="modal">
+                  <button className="bg-[#6c47ff] text-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer">
+                    Sign Up
+                  </button>
+                </SignUpButton>
 
-            </Show>
-            <Show when="signed-in">
-              <UserButton />
-              <SignOutButton></SignOutButton>
-            </Show>
-          </header>
-        
-          {children}
+              </Show>
+              <Show when="signed-in">
+                <UserButton />
+                <SignOutButton></SignOutButton>
+              </Show>
+            </header>
+          
+            {children}
+          </Providers>
         </ClerkProvider>
       </body>
     </html>

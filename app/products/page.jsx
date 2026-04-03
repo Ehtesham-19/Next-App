@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 async function getProducts() {
-  const response = await fetch("https://dummyjson.com/products", {
+  const response = await fetch("http://localhost:3000/api/products", {
     next: { revalidate: 3600 },
   });
 

@@ -7,7 +7,7 @@ const AUTH_ROUTES = ["/login", "/logout", "/password"];
 
 const NAV_LINKS = [
   { href: "/home", label: "Home" },
-  { href: "/about", label: "About" },
+  { href: "/blog", label: "Blogs" },
   { href: "/about/profile", label: "Profile" },
   { href: "/products", label: "Products" },
   { href: "/logout", label: "Logout" },

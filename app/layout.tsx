@@ -3,6 +3,7 @@ import { ClerkProvider, Show, SignInButton, SignUpButton, UserButton,SignOutButt
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import Header from './components/Header'
+import Footer from './components/Footer'
 import { Providers } from './providers'
 
 const geistSans = Geist({
@@ -48,6 +49,7 @@ export default function RootLayout({
             </header>
           
             {children}
+            <Footer />
           </Providers>
         </ClerkProvider>
       </body>

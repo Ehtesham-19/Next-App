@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Link from 'next/link'
 
 export default function Error({ error, reset }) {
   return (
@@ -62,9 +63,9 @@ export default function Error({ error, reset }) {
           {/* Support Link */}
           <p className="text-gray-500 text-xs mt-6">
             Need help?{' '}
-            <a href="/" className="text-indigo-600 hover:text-indigo-700 font-semibold">
+            <Link href="/" className="text-indigo-600 hover:text-indigo-700 font-semibold">
               Return to home
-            </a>
+            </Link>
           </p>
         </div>
 

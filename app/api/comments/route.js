@@ -8,7 +8,7 @@ const fetchWithTimeout = (url, timeout = TIMEOUT) => {
   ])
 }
 
-export async function GET(request) {
+export async function GET() {
   try {
     const response = await fetchWithTimeout(JSON_SERVER_URL)
     

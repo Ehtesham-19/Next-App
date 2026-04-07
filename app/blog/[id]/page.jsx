@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, memo } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useLoading } from "@/app/context/LoadingContext";
 
@@ -141,13 +140,15 @@ export default function BlogDetail() {
         </Link>
 
         <div className="mb-8">
-          <img
-            src={
-              blog.image || `https://picsum.photos/800/400?random=${blog.id}`
-            }
-            alt={blog.title}
-            className="w-full h-96 object-cover rounded-xl shadow-lg"
-          />
+          <picture>
+            <img
+              src={
+                blog.image || `https://picsum.photos/800/400?random=${blog.id}`
+              }
+              alt={blog.title}
+              className="w-full h-96 object-cover rounded-xl shadow-lg"
+            />
+          </picture>
         </div>
 
         <article className="bg-white rounded-xl shadow-lg p-8 md:p-12">

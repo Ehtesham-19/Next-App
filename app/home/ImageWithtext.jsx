@@ -2,7 +2,7 @@ import React from "react";
 
 function ImageWithtext() {
   return (
-    <div className="w-100% flex">
+    <div className="w-full flex">
       <div className="w-[50%] p-4">
         <img
           src="https://images.pexels.com/photos/2882507/pexels-photo-2882507.jpeg"

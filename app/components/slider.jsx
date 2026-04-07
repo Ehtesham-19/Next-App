@@ -23,24 +23,28 @@ export default function ImageSlider() {
         <div>
           <img
             src="https://images.pexels.com/photos/32035936/pexels-photo-32035936.jpeg"
+            alt="Slider image 1"
             className="image-slider-image"
           />
         </div>
         <div>
           <img
             src="https://images.pexels.com/photos/32035936/pexels-photo-32035936.jpeg"
+            alt="Slider image 2"
             className="image-slider-image"
           />
         </div>
         <div>
           <img
             src="https://images.pexels.com/photos/32035936/pexels-photo-32035936.jpeg"
+            alt="Slider image 3"
             className="image-slider-image"
           />
         </div>
         <div>
           <img
             src="https://images.pexels.com/photos/32035936/pexels-photo-32035936.jpeg"
+            alt="Slider image 4"
             className="image-slider-image"
           />
         </div>

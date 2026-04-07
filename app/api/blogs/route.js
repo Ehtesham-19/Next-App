@@ -1,4 +1,4 @@
-export async function GET(request) {
+export async function GET() {
   try {
     const response = await fetch('https://jsonfakery.com/blogs', {
       headers: { 'Content-Type': 'application/json' },

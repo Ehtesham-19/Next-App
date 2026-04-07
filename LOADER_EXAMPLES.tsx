@@ -37,13 +37,11 @@ export function FetchExample() {
 // ============================================
 // EXAMPLE 2: Form Submission
 // ============================================
-'use client'
-// import { useLoading } from '@/app/context/LoadingContext'
 import { useState } from 'react'
 
 export function FormSubmitExample() {
   const { startLoading, stopLoading } = useLoading()
-  const [formData, setFormData] = useState({})
+  const [formData] = useState({})
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
@@ -73,8 +71,6 @@ export function FormSubmitExample() {
 // ============================================
 // EXAMPLE 3: Button Click Action
 // ============================================
-'use client'
-// import { useLoading } from '@/app/context/LoadingContext'
 
 export function ButtonActionExample() {
   const { startLoading, stopLoading } = useLoading()
@@ -96,8 +92,6 @@ export function ButtonActionExample() {
 // ============================================
 // EXAMPLE 4: Multiple Async Operations
 // ============================================
-'use client'
-// import { useLoading } from '@/app/context/LoadingContext'
 
 export function MultipleAsyncExample() {
   const { startLoading, stopLoading } = useLoading()
@@ -125,7 +119,6 @@ export function MultipleAsyncExample() {
 // ============================================
 // EXAMPLE 5: With Error Handling and Toast
 // ============================================
-'use client'
 import { useLoading } from '@/app/context/LoadingContext'
 import { toast } from 'react-toastify'
 
@@ -142,7 +135,8 @@ export function WithToastExample() {
       toast.success('Action completed successfully!')
       return result
     } catch (error) {
-      toast.error('Error: ' + error.message)
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
+      toast.error('Error: ' + errorMessage)
       throw error
     } finally {
       stopLoading()

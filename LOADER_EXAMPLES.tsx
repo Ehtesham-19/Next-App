@@ -8,7 +8,7 @@
 // EXAMPLE 1: Basic Data Fetching
 // ============================================
 'use client'
-import { useLoading } from '@/app/context/LoadingContext'
+// import { useLoading } from '@/app/context/LoadingContext'
 import { useEffect } from 'react'
 
 export function FetchExample() {
@@ -38,14 +38,14 @@ export function FetchExample() {
 // EXAMPLE 2: Form Submission
 // ============================================
 'use client'
-import { useLoading } from '@/app/context/LoadingContext'
+// import { useLoading } from '@/app/context/LoadingContext'
 import { useState } from 'react'
 
 export function FormSubmitExample() {
   const { startLoading, stopLoading } = useLoading()
   const [formData, setFormData] = useState({})
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
     startLoading()
     try {
@@ -74,7 +74,7 @@ export function FormSubmitExample() {
 // EXAMPLE 3: Button Click Action
 // ============================================
 'use client'
-import { useLoading } from '@/app/context/LoadingContext'
+// import { useLoading } from '@/app/context/LoadingContext'
 
 export function ButtonActionExample() {
   const { startLoading, stopLoading } = useLoading()
@@ -97,7 +97,7 @@ export function ButtonActionExample() {
 // EXAMPLE 4: Multiple Async Operations
 // ============================================
 'use client'
-import { useLoading } from '@/app/context/LoadingContext'
+// import { useLoading } from '@/app/context/LoadingContext'
 
 export function MultipleAsyncExample() {
   const { startLoading, stopLoading } = useLoading()

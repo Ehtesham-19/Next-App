@@ -1,21 +1,18 @@
 export async function GET(request) {
   try {
     const response = await fetch('https://jsonfakery.com/blogs', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
+      next: { revalidate: 3600 }
     })
 
     if (!response.ok) {
       return new Response(
-        JSON.stringify({ error: 'Failed to fetch blogs from external API' }),
+        JSON.stringify({ error: 'Failed to fetch blogs' }),
         { status: response.status, headers: { 'Content-Type': 'application/json' } }
       )
     }
 
     const data = await response.json()
-
     return new Response(JSON.stringify(data), {
       status: 200,
       headers: {

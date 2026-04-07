@@ -1,0 +1,40 @@
+{
+  "comments": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "body": "Great blog post!",
+      "createdAt": "2026-04-01T10:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "Jane Smith",
+      "email": "jane@example.com",
+      "body": "Very informative, thanks for sharing.",
+      "createdAt": "2026-04-02T14:30:00.000Z"
+    },
+    {
+      "id": "3",
+      "name": "Bob Johnson",
+      "email": "bob@example.com",
+      "body": "Loved this content!",
+      "createdAt": "2026-04-03T09:15:00.000Z"
+    },
+    {
+      "name": "ehtesham",
+      "email": "mehteshamdeveloper@gmail.com",
+      "body": "test",
+      "createdAt": "2026-04-06T08:27:36.729Z",
+      "id": "pwn-95mnMPo"
+    },
+    {
+      "name": "Saqib",
+      "email": "test@gmail.com",
+      "body": "this my first comments towards the dummy json server",
+      "createdAt": "2026-04-06T08:44:48.363Z",
+      "id": "2ZDLVsbKKfQ"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

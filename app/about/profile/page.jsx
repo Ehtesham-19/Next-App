@@ -1,23 +1,45 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo, useCallback } from "react";
 import { toast } from "react-toastify";
+import { useLoading } from "@/app/context/LoadingContext";
+
+const CommentCard = memo(({ comment }) => (
+  <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition">
+    <div className="flex items-start justify-between mb-3">
+      <div>
+        <h3 className="text-lg font-semibold text-gray-900">{comment.name}</h3>
+        <p className="text-sm text-gray-500">{comment.email}</p>
+      </div>
+      <span className="text-xs text-gray-400">
+        {comment.createdAt
+          ? new Date(comment.createdAt).toLocaleDateString()
+          : "Just now"}
+      </span>
+    </div>
+    <p className="text-gray-700 leading-relaxed">{comment.body}</p>
+  </div>
+))
+CommentCard.displayName = 'CommentCard'
 
 export default function ProfilePage() {
+  const { startLoading, stopLoading } = useLoading();
   const [comments, setComments] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     body: "",
   });
-  const [submitting, setSubmitting] = useState(false);
 
+  // Fetch comments once on mount
   useEffect(() => {
     const fetchComments = async () => {
+      startLoading();
       try {
-        const response = await fetch("/api/comments");
+        const response = await fetch("/api/comments", {
+          next: { revalidate: 60 }
+        });
         if (!response.ok) {
           throw new Error("Failed to fetch comments");
         }
@@ -26,22 +48,24 @@ export default function ProfilePage() {
       } catch (err) {
         setError(err.message);
       } finally {
-        setLoading(false);
+        stopLoading();
       }
     };
 
     fetchComments();
-  }, []);
+  }, [startLoading, stopLoading]);
 
-  const handleInputChange = (e) => {
+  // Memoized input handler
+  const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
-  };
+  }, []);
 
-  const handleSubmit = async (e) => {
+  // Optimized form submission
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
 
     if (
@@ -53,7 +77,7 @@ export default function ProfilePage() {
       return;
     }
 
-    setSubmitting(true);
+    startLoading();
     try {
       const response = await fetch("/api/comments", {
         method: "POST",
@@ -74,9 +98,9 @@ export default function ProfilePage() {
     } catch (err) {
       toast.error("Error adding comment: " + err.message);
     } finally {
-      setSubmitting(false);
+      stopLoading();
     }
-  };
+  }, [formData, comments, startLoading, stopLoading])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
@@ -126,10 +150,9 @@ export default function ProfilePage() {
             ></textarea>
             <button
               type="submit"
-              disabled={submitting}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 text-white font-bold py-3 px-6 rounded-lg transition"
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition"
             >
-              {submitting ? "Submitting..." : "Post Comment"}
+              Post Comment
             </button>
           </form>
         </div>
@@ -139,19 +162,13 @@ export default function ProfilePage() {
             Comments ({comments.length})
           </h2>
 
-          {loading && (
-            <div className="text-center py-12">
-              <div className="text-gray-600">Loading comments...</div>
-            </div>
-          )}
-
           {error && (
             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6">
               Error: {error}
             </div>
           )}
 
-          {!loading && comments.length === 0 && (
+          {comments.length === 0 && (
             <div className="bg-gray-100 rounded-xl p-8 text-center">
               <p className="text-gray-600 text-lg">
                 No comments yet. Be the first to comment!
@@ -161,25 +178,7 @@ export default function ProfilePage() {
 
           <div className="space-y-4">
             {comments.map((comment) => (
-              <div
-                key={comment.id}
-                className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      {comment.name}
-                    </h3>
-                    <p className="text-sm text-gray-500">{comment.email}</p>
-                  </div>
-                  <span className="text-xs text-gray-400">
-                    {comment.createdAt
-                      ? new Date(comment.createdAt).toLocaleDateString()
-                      : "Just now"}
-                  </span>
-                </div>
-                <p className="text-gray-700 leading-relaxed">{comment.body}</p>
-              </div>
+              <CommentCard key={comment.id} comment={comment} />
             ))}
           </div>
         </div>

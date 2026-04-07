@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <style>
+      .favicon-bg { fill: #4F46E5; }
+      .favicon-icon { fill: #FFFFFF; }
+    </style>
+  </defs>
+  <!-- Background -->
+  <rect class="favicon-bg" width="192" height="192" rx="45"/>
+  
+  <!-- Blog/Comment Icon -->
+  <g transform="translate(48, 48)">
+    <!-- Page -->
+    <rect class="favicon-icon" x="0" y="0" width="80" height="96" rx="8"/>
+    <!-- Content lines -->
+    <rect class="favicon-icon" x="12" y="16" width="56" height="4" rx="2" opacity="0.8"/>
+    <rect class="favicon-icon" x="12" y="28" width="56" height="4" rx="2" opacity="0.8"/>
+    <rect class="favicon-icon" x="12" y="40" width="56" height="4" rx="2" opacity="0.8"/>
+    <!-- Comment bubble -->
+    <path class="favicon-icon" d="M 48 56 L 64 56 L 64 68 L 52 68 L 48 76 L 48 68 Q 48 56 48 56" opacity="0.9"/>
+  </g>
+</svg>

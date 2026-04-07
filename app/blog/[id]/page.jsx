@@ -1,103 +1,79 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useParams } from "next/navigation";
+import { useLoading } from "@/app/context/LoadingContext";
+
+const Loader = memo(() => (
+  <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 to-blue-100 p-4">
+    <style>{`
+      @keyframes spin {0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); }}
+      @keyframes pulse {0%, 100% { opacity: 1; } 50% { opacity: 0.5; }}
+      .loader-spinner { animation: spin 3s linear infinite; }
+      .loader-dot { animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+    `}</style>
+    <div className="text-center">
+      <div className="mb-8 flex justify-center">
+        <div className="relative w-24 h-24">
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-full opacity-20 blur-lg"></div>
+          <div className="absolute inset-0 loader-spinner">
+            <div className="w-24 h-24 rounded-full border-4 border-transparent border-t-indigo-600 border-r-blue-500"></div>
+          </div>
+        </div>
+      </div>
+      <h2 className="text-3xl font-bold text-gray-800 mb-2">Loading Blog</h2>
+      <p className="text-gray-600 mb-6">Please wait while we fetch the blog details...</p>
+      <div className="flex justify-center gap-1">
+        <div className="loader-dot w-2 h-2 bg-indigo-600 rounded-full" style={{ animationDelay: "0s" }}></div>
+        <div className="loader-dot w-2 h-2 bg-blue-600 rounded-full" style={{ animationDelay: "0.3s" }}></div>
+        <div className="loader-dot w-2 h-2 bg-indigo-600 rounded-full" style={{ animationDelay: "0.6s" }}></div>
+      </div>
+    </div>
+  </div>
+));
+Loader.displayName = 'Loader';
 
 export default function BlogDetail() {
   const params = useParams();
   const blogId = params.id;
+  const { startLoading, stopLoading } = useLoading();
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchBlog = async () => {
+      startLoading();
       try {
-        console.log("🔍 Page: Fetching blog with ID:", blogId);
+        if (!blogId) return;
 
-        if (!blogId) {
-          console.log("⚠️ No blogId provided");
-          return;
-        }
-
-        const response = await fetch("/api/blogs");
-
-        console.log("📡 API Response status:", response.status);
+        const response = await fetch(`/api/blogs/${blogId}`, {
+          next: { revalidate: 3600 }
+        });
 
         if (!response.ok) {
-          throw new Error("Failed to fetch blogs");
+          throw new Error("Failed to fetch blog");
         }
 
-        const allBlogs = await response.json();
-
-        const foundBlog = allBlogs.find((b) => String(b.id) === String(blogId));
-
-        if (!foundBlog) {
-          throw new Error(`Blog with ID "${blogId}" not found`);
-        }
-
-        setBlog(foundBlog);
+        const data = await response.json();
+        setBlog(data);
       } catch (err) {
-        console.error("❌ Page Error:", err);
+        console.error("Error:", err);
         setError(err.message);
       } finally {
         setLoading(false);
+        stopLoading();
       }
     };
 
     if (blogId) {
       fetchBlog();
     }
-  }, [blogId]);
+  }, [blogId, startLoading, stopLoading]);
 
-  if (loading)
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 to-blue-100 p-4">
-        <style>{`
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
-        }
-        .loader-spinner {
-          animation: spin 3s linear infinite;
-        }
-        .loader-dot {
-          animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-      `}</style>
-        <div className="text-center">
-          <div className="mb-8 flex justify-center">
-            <div className="relative w-24 h-24">
-              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-full opacity-20 blur-lg"></div>
-              <div className="absolute inset-0 loader-spinner">
-                <div className="w-24 h-24 rounded-full border-4 border-transparent border-t-indigo-600 border-r-blue-500"></div>
-              </div>
-            </div>
-          </div>
-        <h2 className="text-3xl font-bold text-gray-800 mb-2">Loading Blog</h2>
-        <p className="text-gray-600 mb-6">Please wait while we fetch the blog details...</p>
-          <div className="flex justify-center gap-1">
-            <div
-              className="loader-dot w-2 h-2 bg-indigo-600 rounded-full"
-              style={{ animationDelay: "0s" }}
-            ></div>
-            <div
-              className="loader-dot w-2 h-2 bg-blue-600 rounded-full"
-              style={{ animationDelay: "0.3s" }}
-            ></div>
-            <div
-              className="loader-dot w-2 h-2 bg-indigo-600 rounded-full"
-              style={{ animationDelay: "0.6s" }}
-            ></div>
-          </div>
-        </div>
-      </div>
-    );
+  if (loading) return <Loader />;
 
   if (error)
     return (

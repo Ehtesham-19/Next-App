@@ -6,16 +6,20 @@ import Blogs from "./Blogs";
 import ImageWithtext from "./ImageWithtext";
 import TaskScheduler from "./Todo";
 import { Button } from "@/components/ui/button";
+import { WelcomeModal } from "@/app/components/WelcomeModal";
 
 function HomePage() {
   return (
-    <div>
-      <Card />
-      <Blogs />
-      <TaskScheduler />
-      <ImageWithtext />
-      <Button variant="outline">Text</Button>
-    </div>
+    <>
+      <WelcomeModal />
+      <div>
+        <Card />
+        <Blogs />
+        <TaskScheduler />
+        <ImageWithtext />
+        <Button variant="outline">Text</Button>
+      </div>
+    </>
   );
 }
 

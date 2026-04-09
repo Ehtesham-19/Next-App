@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Next.js Blog & Comments',
+  title: ' Blog & Comments',
   description: 'Explore amazing blogs and share your thoughts with our community',
   icons: {
     icon: '/favicon.svg',

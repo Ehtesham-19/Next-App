@@ -1,5 +1,4 @@
 import fs from "fs/promises";
-import React from "react";
 
 const SubmitEvent = async (e) => {
   "use server";
